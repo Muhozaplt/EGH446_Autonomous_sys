@@ -4,7 +4,7 @@ close_system('sl_quadrotorDynamics',0);
 
 
 %% add toolboxes to path
-homedir = pwd; 
+homedir = "/home/muhoza/EGH446_Autonomous_sys"; 
 addpath(genpath(strcat(homedir,[filesep,'toolboxes'])));
 cd('toolboxes/MRTB');
 startMobileRoboticsSimulationToolbox;
