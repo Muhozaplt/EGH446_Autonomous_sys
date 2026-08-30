@@ -1,5 +1,5 @@
 dt = 0.1;
-
+% the states are defined as follows: x, y, yaw, x_dot, y_dot, yaw_dot
 A = [1 0 0 dt 0 0 ;
      0 1 0 0 dt 0 ;
      0 0 1 0 0 dt ;
