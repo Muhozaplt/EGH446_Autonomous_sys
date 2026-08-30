@@ -24,4 +24,4 @@ R =diag([sigma_x2, sigma_y2, sigma_theta2]);
 
 % Initial state and covariance
 x0 = zeros(6,1);
-P0 =eye(6);
+P0 = diag([1, 1, 1, 100, 100, 100]);
