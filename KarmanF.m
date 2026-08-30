@@ -11,12 +11,13 @@ H= [1 0 0 0 0 0;
     0 0 1 0 0 0];
 
 % Define the process noise covariance matrix
-set_Q= 0.5;
+set_Q= 0.07;
 Q = set_Q * eye(6);
 
 % Define the measurement noise covariance matrix
-set_R = 10;
+set_R = 100;
 R = set_R * eye(3);
-% Initialize state vector and covariance matrix
-x = zeros(6, 1); % Initial state
-P = eye(6);      % Initial covariance matrix
+% Initial state and covariance
+x0 = zeros(6,1);
+P0 = eye(6);
+
