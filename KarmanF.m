@@ -16,7 +16,7 @@ set_Q= 0.001;
 Q = set_Q * eye(6);
 
 
-% Measurement noise covariance — set directly from the given sensor spec
+% Measurement noise covariance — with the given sensor spec
 sigma_x2     = 0.1;                 % m^2
 sigma_y2     = 0.1;                 % m^2
 sigma_theta2 = 2* (pi/180)^2;      % deg^2 -> rad^2
