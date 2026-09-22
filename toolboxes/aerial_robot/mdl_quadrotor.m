@@ -118,5 +118,5 @@ quad.k = quad.Cq*quad.rho*quad.A*quad.r^3; % Q = k w^2
 
 quad.verbose = false;
 % inital xyz position of the quadrotor
-quad.init_pos = [0 0 -0.5];
+quad.init_pos = [2 2 -0.5];
 
