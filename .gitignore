@@ -1,3 +1,12 @@
 slprj/
 startupGround.m
 ._startupGround.m
+
+# macOS metadata
+._*
+.DS_Store
+
+# MATLAB/Simulink generated files
+*.slxc
+*.asv
+*.autosave
