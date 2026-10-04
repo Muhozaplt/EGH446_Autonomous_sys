@@ -16,9 +16,9 @@ Q = diag([0.001 0.001 0.001 0.05 0.05 0.05]);
 
 
 % Measurement noise covariance — with the given sensor spec
-sigma_x2     = 0.1;                 % m^2
-sigma_y2     = 0.1;                 % m^2
-sigma_theta2 = 2* (pi/180)^2;      % deg^2 -> rad^2
+sigma_x2     = 0.01;                % m^2 (brief: 0.01 m^2)
+sigma_y2     = 0.01;                % m^2
+sigma_theta2 = 4*(pi/180)^2;        % brief: 4 deg^2, converted to rad^2
 R = diag([sigma_x2, sigma_y2, sigma_theta2]);
 
 % Initial state and covariance

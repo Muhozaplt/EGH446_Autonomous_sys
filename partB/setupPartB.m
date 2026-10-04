@@ -14,7 +14,7 @@ plan_clearance = 1.2;     % used for path planning around walls [m]
 prune_margin = 0.4;       % extra clearance for pruned path segments [m]
 
 % generate random waypoints that do not overlap walls or obstacles
-wp_list = wp_gen(52, 41, 5, start_xy, logical_map, obstacles, 100, clearance);
+wp_list = wp_gen(52, 41, 5, start_xy, logical_map, obstacles, 192, clearance);
 nodes = [start_xy; wp_list];
 
 % planning map: walls only, inflated for clearance (no obstacle information)
@@ -51,3 +51,17 @@ inflate(pruneMap, plan_clearance + prune_margin);
 P = target_path';
 keep = ismembertol(P, wp_ordered, 1e-3, 'ByRows', true, 'DataScale', 1);
 target_path = pruneLOS(P, pruneMap, keep)';
+
+% wall grid for choosing the detour side around obstacles
+% (0.35 m requirement plus margin)
+avoidMap = binaryOccupancyMap(logical_map, 10);
+inflate(avoidMap, 0.6);
+wall_grid = occupancyMatrix(avoidMap);
+
+% flag the points of the planned path that are target waypoints
+% (used by the guidance so local replanning never skips a target)
+target_mask = ismembertol(target_path', wp_ordered, 1e-3, ...
+    'ByRows', true, 'DataScale', 1)';
+
+% the guidance stores the path in a fixed-size array
+assert(size(target_path,2) <= 400, 'target_path has more than 400 points');
