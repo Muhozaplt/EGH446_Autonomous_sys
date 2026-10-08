@@ -166,13 +166,17 @@ function [sparse, ok] = planDetour(wallMap, avoidMap, obs, r, pos, goal, r_clear
 sparse = [];
 ok = false;
 
-% walls plus every detected obstacle as a disc of radius r
+% Start with the wall-clearance map.
 map = copy(wallMap);
-addDiscs(map, obs, r);
 
-% make sure the start and goal can be planned from
+% Clear small regions around the start and goal,
+% without removing any obstacle exclusion zones.
 clearDisc(map, avoidMap, pos, r_clear);
 clearDisc(map, avoidMap, goal, r_clear);
+
+% Add detected obstacles LAST so their safety zones
+% cannot be erased by the start/goal clearing.
+addDiscs(map, obs, r);
 
 % only allow the search inside a window around the start and goal
 map = limitToWindow(map, pos, goal, win_margin);

@@ -20,6 +20,6 @@ open_system('sl_quadrotorDynamics'); % quadrotor aerial  model
 
 cd(homedir);
 
-scanAngles = linspace(-pi / 4, pi / 4, 10);
+scanAngles = linspace(-pi/3, pi/3, 25);
 
 
