@@ -63,6 +63,9 @@ end
 [~, io] = min(dseg);
 o = obs(io,:);
 
+fprintf('Obstacle selected for replanning: (%.2f, %.2f)\n', ...
+    o(1), o(2));
+
 % rejoin point: first path point after the conflicting segment that is
 % clear of the obstacles, without going past a target waypoint
 k = m + 1;
@@ -166,13 +169,23 @@ function [sparse, ok] = planDetour(wallMap, avoidMap, obs, r, pos, goal, r_clear
 sparse = [];
 ok = false;
 
-% walls plus every detected obstacle as a disc of radius r
+% Walls plus detected obstacles
 map = copy(wallMap);
 addDiscs(map, obs, r);
 
-% make sure the start and goal can be planned from
-clearDisc(map, avoidMap, pos, r_clear);
-clearDisc(map, avoidMap, goal, r_clear);
+% Only clear start/goal cells if they are outside
+% the required obstacle clearance region.
+if all(vecnorm(obs - pos, 2, 2) >= r)
+    clearDisc(map, avoidMap, pos, r_clear);
+end
+
+if all(vecnorm(obs - goal, 2, 2) >= r)
+    clearDisc(map, avoidMap, goal, r_clear);
+end
+
+% Restore obstacle inflation so clearing cannot
+% remove any part of an obstacle's safety region.
+addDiscs(map, obs, r);
 
 % only allow the search inside a window around the start and goal
 map = limitToWindow(map, pos, goal, win_margin);

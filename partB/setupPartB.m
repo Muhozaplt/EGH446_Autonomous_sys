@@ -10,11 +10,12 @@ load(fullfile(root, 'complexMap_air_ground.mat'));
 load(fullfile(root, 'obstacles_air_ground.mat'));
 
 clearance = 0.9;          % used by wp_gen for waypoint placement [m]
-plan_clearance = 1.2;     % used for path planning around walls [m]
+plan_clearance = 1.5;     % used for path planning around walls [m]
 prune_margin = 0.4;       % extra clearance for pruned path segments [m]
 
 % generate random waypoints that do not overlap walls or obstacles
 wp_list = wp_gen(52, 41, 5, start_xy, logical_map, obstacles, 192, clearance);
+
 nodes = [start_xy; wp_list];
 
 % planning map: walls only, inflated for clearance (no obstacle information)
